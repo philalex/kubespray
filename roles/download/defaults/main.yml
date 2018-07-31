@@ -40,7 +40,7 @@ istio_version: "0.2.6"
 vault_version: 0.10.1
 weave_version: 2.3.0
 pod_infra_version: 3.0
-contiv_version: 1.1.7
+contiv_version: 1.2.1
 cilium_version: "v1.0.0-rc8"
 
 # Download URLs
@@ -103,10 +103,10 @@ weave_npc_image_repo: "weaveworks/weave-npc"
 weave_npc_image_tag: "{{ weave_version }}"
 contiv_image_repo: "contiv/netplugin"
 contiv_image_tag: "{{ contiv_version }}"
+contiv_init_image_repo: "contiv/netplugin-init"
+contiv_init_image_tag: "latest"
 contiv_auth_proxy_image_repo: "contiv/auth_proxy"
 contiv_auth_proxy_image_tag: "{{ contiv_version }}"
-contiv_etcd_init_image_repo: "ferest/etcd-initer"
-contiv_etcd_init_image_tag: latest
 cilium_image_repo: "docker.io/cilium/cilium"
 cilium_image_tag: "{{ cilium_version }}"
 nginx_image_repo: nginx
@@ -381,14 +381,6 @@ downloads:
     repo: "{{ contiv_auth_proxy_image_repo }}"
     tag: "{{ contiv_auth_proxy_image_tag }}"
     sha256: "{{ contiv_auth_proxy_digest_checksum|default(None) }}"
-    groups:
-      - k8s-cluster
-  contiv_etcd_init:
-    enabled: "{{ kube_network_plugin == 'contiv' }}"
-    container: true
-    repo: "{{ contiv_etcd_init_image_repo }}"
-    tag: "{{ contiv_etcd_init_image_tag }}"
-    sha256: "{{ contiv_etcd_init_digest_checksum|default(None) }}"
     groups:
       - k8s-cluster
   pod_infra:
