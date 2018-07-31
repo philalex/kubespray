@@ -1,4 +1,4 @@
-# This manifest deploys the Contiv API Server on Kubernetes.
+---
 kind: DaemonSet
 apiVersion: extensions/v1beta1
 metadata:
@@ -33,20 +33,29 @@ spec:
       containers:
         - name: contiv-netmaster
           image: {{ contiv_image_repo }}:{{ contiv_image_tag }}
-          args:
-            - -m
-            - -pkubernetes
           env:
-            - name: CONTIV_ETCD
+            - name: CONTIV_ROLE
+              value: netmaster
+            - name: CONTIV_NETMASTER_MODE
               valueFrom:
                 configMapKeyRef:
                   name: contiv-config
-                  key: cluster_store
-            - name: CONTIV_CONFIG
+                  key: contiv_mode
+            - name: CONTIV_NETMASTER_ETCD_ENDPOINTS
               valueFrom:
                 configMapKeyRef:
                   name: contiv-config
-                  key: config
+                  key: contiv_cluster_store
+            - name: CONTIV_NETMASTER_FORWARD_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: contiv-config
+                  key: contiv_fwdmode
+            - name: CONTIV_NETMASTER_NET_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: contiv-config
+                  key: contiv_netmode
           securityContext:
             privileged: true
           volumeMounts:
@@ -58,3 +67,8 @@ spec:
         - name: var-contiv
           hostPath:
             path: /var/contiv
+        - name: usr-local-sbin
+          hostPath:
+            path: /usr/local/sbin/
+
+
