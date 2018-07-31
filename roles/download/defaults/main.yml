@@ -107,6 +107,7 @@ contiv_init_image_repo: "contiv/netplugin-init"
 contiv_init_image_tag: "latest"
 contiv_auth_proxy_image_repo: "contiv/auth_proxy"
 contiv_auth_proxy_image_tag: "{{ contiv_version }}"
+contiv_ovs_image_repo: "contiv/ovs"
 cilium_image_repo: "docker.io/cilium/cilium"
 cilium_image_tag: "{{ cilium_version }}"
 nginx_image_repo: nginx
