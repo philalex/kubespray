@@ -23,6 +23,8 @@ contiv_generate_certificate: true
 # Forwarding mode: bridge or routing
 contiv_fwd_mode: routing
 
+contiv_net_mode: vxlan
+
 # Fabric mode: aci, aci-opflex or default
 contiv_fabric_mode: default
 
